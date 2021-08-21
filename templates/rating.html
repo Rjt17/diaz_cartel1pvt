@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% block rating %}
+
+<div class="container-fluid">
+  <nav class="navbar navbar-light my-5">
+    <div class="container-fluid mx-1">
+      <form class="d-flex" action="/restaurants/" method="get">
+        <div class="form-row">
+              <div class="col-sm-12 col-md-4">
+                  <input type="text" name="city" value={{city}} id="search_city" class="form-control me-2" placeholder="Address e.g City " />
+              </div>
+              <div class="col-sm-12 col-md-4 autocomplete">
+                  <input type="text" name="restaurant" autocomplete="off" id="search_restaurant" class="form-control me-2" placeholder="Restaurant" />
+              </div>
+              <div class="col-sm-12 col-md-4">
+                  <button class="btn btn-primary" type="submit">Search</button>
+              </div>
+          </div>
+      </form>
+    </div>
+  </nav>
+  
+  <div class="navbar navbar-light">
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalYT">Filter</button>
+</div>
+<!--Modal: Name-->
+<div class="modal fade" id="modalYT" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+  <!--Content-->
+  <div class="modal-content">
+    <!--Body-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Price
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/price/?city={{city}}&filter=hightolow">High To Low</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/price/?city={{city}}&filter=lowtohigh">Low To High</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Rating
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/rating/?city={{city}}&filter=5">5</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/rating/?city={{city}}&filter=4">4+</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/rating/?city={{city}}&filter=3">3+</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/rating/?city={{city}}&filter=2">2+</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/rating/?city={{city}}&filter=1">1+</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/rating/?city={{city}}&filter=0">0+</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Cuisines
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/cuisine/">cuisines1</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/cuisine/">cuisines2</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!--Footer-->
+    <div class="modal-footer justify-content-center">
+      <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+<!--Modal: Name-->
+
+    
+  
+  
+  <div class='container-fluid w-100 py-5'>
+       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          {% for name, rating, url, cuisine, price, location, image_cuisine, image_original in data %}
+          <div class="col">
+            <div class="card shadow-sm">
+              <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/cuisine+images/cuisine+images/{{image_cuisine}}/{{image_original}}" role="img" aria-label="Placeholder: Restaurant Image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/>
+  
+              <div class="card-body">
+                <p class="card-text"><b>{{name}}</b></p>
+                <p class="card-text">{{location}}</p>
+                <p class="card-text">{{rating}}</p>
+                <p class="card-text">{{cuisine}}</p>
+                <p class="card-text"><i>{{price}}</i></p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <a class="py-2" href='/offer/?city={{city}}&restaurant={{url}}'><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+  </div>
+  </div>
+
+{% endblock rating %}

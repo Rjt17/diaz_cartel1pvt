@@ -1,0 +1,302 @@
+{% extends 'base.html' %}
+
+{% block index %}
+            <section class="banner">
+                    
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                      <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                      </ol>
+                      <div class="carousel-inner">
+                        <div class="carousel-item active">
+                          <img class="d-block w-100" src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/banner/1607770932.jpg" alt="First slide">
+                        </div>
+                        <div class="carousel-item">
+                          <img class="d-block w-100" src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/banner/1607770943.jpg" alt="Second slide">
+                        </div>
+                        <div class="carousel-item">
+                          <img class="d-block w-100" src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/banner/1607770952.jpg" alt="Third slide">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="slider_box">
+                        <h2>
+                            Provides You Best Offers On Food <br />
+                            Delivery And Dine-In
+                        </h2>
+                        <p>Compare offers on your favourite restaurant</p>
+                        <div class="search_bar">
+                            <form action="/restaurants/" method="get" name="searchform" onsubmit="return validateForm()" required>
+                                <div class="form-row">
+                                    <div class="col-sm-12 col-md-4">
+                                        <input type="text" name="city" id="search_city" value="jaipur" class="form-control" placeholder="Address e.g City " list="cities" autocomplete="off" />
+                                        <datalist id="cities">
+                                            {% for city in cities %}
+                                            <option value='{{city}}'></option>
+                                            {% endfor %}
+                                        </datalist>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 autocomplete">
+                                        <input type="text" name="restaurant" autocomplete="off" id="search_restaurant" class="form-control" placeholder="Restaurant e.g RJ14" />
+                                    </div>
+                                    <div class="col-sm-12 col-md-4">
+                                        <button class="btn" type="submit" id="searchbuttonmain">Search</button>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                        </div>
+                        <div class="row moblie_hide">
+                            <div class="col-md-4 col-lg-4"> 
+                                    <img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/stap-01.png" />
+                            </div>
+                            <div class="col-md-4 col-lg-4 staps_sec">
+                                <img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/stap_arrow01.svg" class="stap_arrow01" />
+                                    <img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/stap-02.png" />
+                                <img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/stap_arrow02.svg" class="stap_arrow02" />
+                            </div>
+                            <div class="col-md-4 col-lg-4">
+                                    <img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/stap-03.png" />
+                            </div>
+                        </div>
+                    </div>
+            </section>
+            <section class="product_sec">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2 class="main_heading">MORE THAN <span>50,000+</span>RESTAURANTS</h2>
+                            <p>Welcome to The Biggest Network of Food Ordering & Delivery</p>
+                        </div>
+
+                        <div class="col-sm-12 col-md-6 col-lg-3">
+                            <div class="product_box">
+                                <a href="/south/">
+                                    <div class="img_box">
+                                        <img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/product01.jfif" class="w-100" />
+                                    </div>
+                                
+                                    <div class="detail_box">
+                                        <h4>South Indian</h4>
+                                        <h5>A handful of south india</h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-3">
+                            <div class="product_box">
+                                <a href="/pizza/">
+                                    <div class="img_box">
+                                        <img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/product02.jpg" class="w-100" />
+                                    </div>
+                                
+                                    <div class="detail_box">
+                                        <h4>Pizza</h4>
+                                        <h5>Choose Your Favorite Pizza</h5>
+                                    </div>
+                                </a>    
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-3">
+                            <div class="product_box">
+                                <a href="/burger/">
+                                    <div class="img_box">
+                                        <img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/product03.jpg" class="w-100" />
+                                    </div>
+                                
+                                    <div class="detail_box">
+                                        <h4>Burgers</h4>
+                                        <h5>From Vegetarian to Three-Meat</h5>
+                                    </div>
+                                </a>    
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-3">
+                            <div class="product_box">
+                                <a href="/dessert/">
+                                    <div class="img_box">
+                                        <img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/product04.jpg" class="w-100" />
+                                    </div>
+                                
+                                    <div class="detail_box">
+                                        <h4>Desserts</h4>
+                                        <h5>Find Desserts or Every Taste</h5>
+                                    </div>
+                                </a>    
+                            </div>
+                        </div>
+                        <!--<div class="col-sm-12">
+                            <span class="more_text">And Much More Your Favorite Food</span>
+                            <a class="more_btn" href="#">More Categories</a>
+                        </div>-->
+                    </div>
+                </div>
+            </section>
+            
+  <div class="album py-5 bg-light d-none">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <div class="col">
+          <div class="card shadow-sm">
+            <img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/aadiivaasiii.jpg" class="bd-placeholder-img card-img-top" width="100%" height="225">
+            
+
+            <div class="card-body">
+              <p class="card-text"><b>Rishika Rao</b></p>
+              <p><i>@aadiivaasiii</i></p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group py-2">
+                  <a href="https://instagram.com/aadiivaasiii?utm_medium=copy_link" target="_blank"><button type="button" class="btn btn-sm btn-outline-secondary">View Profile</button></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+            <img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/foodmapjaipur.jpg" class="bd-placeholder-img card-img-top" width="100%" height="225">
+
+            <div class="card-body">
+              <p class="card-text"><b>Food Map Jaipur</b></p>
+                <p><i>@foodmapjaipur</i></p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group py-2">
+                  <a href="https://instagram.com/foodmapjaipur?utm_medium=copy_link" target="_blank"><button type="button" class="btn btn-sm btn-outline-secondary">View Profile</button></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+            <img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/thefoodiedevi.jpg" class="bd-placeholder-img card-img-top" width="100%" height="225">
+
+            <div class="card-body">
+              <p class="card-text"><b>Radhika Agarwal•TheFoodieDevi™</b></p>
+              <p><i>@thefoodiedevi</i></p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group py-2">
+                  <a href="https://instagram.com/thefoodiedevi?utm_medium=copy_link" target="_blank"><button type="button" class="btn btn-sm btn-outline-secondary">View Profile</button></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col py-4">
+          <div class="card shadow-sm">
+            <img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/and.then.i.ate.jpg" class="bd-placeholder-img card-img-top" width="100%" height="225">
+
+            <div class="card-body">
+              <p class="card-text"><b>And Then I Ate™</b></p>
+              <p><i>@and.then.i.ate</i></p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group py-2">
+                  <a href="https://instagram.com/and.then.i.ate?utm_medium=copy_link" target="_blank"><button type="button" class="btn btn-sm btn-outline-secondary">View Profile</button></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col py-4">
+          <div class="card shadow-sm">
+            <img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/kraviings.jpg" class="bd-placeholder-img card-img-top" width="100%" height="225">
+
+            <div class="card-body">
+              <p class="card-text"><b>Kraviings||Jaipur Foodie</b></p>
+              <p><i>@kraviings</i></p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group py-2">
+                  <a href="https://instagram.com/kraviings?utm_medium=copy_link" target="_blank"><button type="button" class="btn btn-sm btn-outline-secondary">View Profile</button></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col py-4">
+          <div class="card shadow-sm">
+            <img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/thefoodiebaba.jpg" class="bd-placeholder-img card-img-top" width="100%" height="225">
+
+            <div class="card-body">
+              <p class="card-text"><b>Satyam Bhargav | thefoodieबाबा</b></p>
+              <p><i>@thefoodiebaba</i></p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group py-2">
+                  <a href="https://instagram.com/thefoodiebaba?utm_medium=copy_link" target="_blank"><button type="button" class="btn btn-sm btn-outline-secondary">View Profile</button></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+            
+            <section class="top_restaurants">
+                <div class="container">
+                    <div class="col-sm-12 text-center">
+                        <h2 class="main_heading">TOP RESTAURANTS</h2>
+                        <p>Clients’ Most Popular Choice</p>
+                    </div>
+                    <div class="logos_partner">
+                        <div class="logos_prtn">
+                            <div class="text-center"><a href="https://online.kfc.co.in/home" target="_blank"><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/kfc.png" alt="KFC" /></a></div>
+                            <div class="text-center"><a href="https://www.mcdonaldsindia.com/" target="_blank"><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/mcdonald.png" alt="McDonald" /></a></div>
+                            <div class="text-center"><a href="https://pizzaonline.dominos.co.in/" target="_blank"><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/domino.png" alt="Domino" /></a></div>
+                            <div class="text-center"><a href="https://www.subway.com/en-in" target="_blank"><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/subway.png" alt="Subway" /></a></div>
+                            <div class="text-center"><a href="https://www.burgerking.in/" target="_blank"><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/burger-king.png" alt="Burger King" /></a></div>
+                            <div class="text-center"><a href="https://www.pizzahut.co.in/" target="_blank"><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/pizza-hut.png" alt="Pizza Hut" /></a></div>
+                            <div class="text-center"><a href="https://www.cafecoffeeday.com/" target="_blank"><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/ccd.png" alt="CCD" /></a></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="subscribe_sec">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8 align-self-center">
+                            <div class="subs_box">
+                                <h3>
+                                    Get Your Favorite Food Fast<br />
+                                    With The App
+                                </h3>
+                                <!--
+                                <a href="#"><i class="fab fa-apple"></i> Download on the App store</a>
+                                <a href="#"><i class="fab fa-google-play"></i> Download on the Play store</a>
+                                -->
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/mobile_app.png" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="our_partners d-none">
+                <div class="owl-carousel owl-theme">
+                    <div class="item"><a href="https://www.zomato.com" target="_blank"><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/zomato-1.jpg" /></a></div>
+                    <div class="item"><a href="https://www.swiggy.com" target="_blank"><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/swiggy.svg" /></a></div>
+                    <div class="item"><a href="https://www.eazydiner.com" target="_blank"><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/easydiner.svg" /></a></div>
+                    <div class="item"><a href="https://www.dineout.co.in" target="_blank"><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/dineout.svg" /></a></div>
+                    <div class="item"><a href="https://www.magicpin.in" target="_blank"><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/magicpin-logo.jpg" /></a></div>
+                </div>
+            </section>
+
+      <script>
+        function validateForm() {
+    var x = document.forms["searchform"]["city"].value;
+    if (x == "" || x == " ") {
+        alert("City must be filled out");
+        return false;
+    }
+    }
+    </script>
+
+            
+{% endblock index %}

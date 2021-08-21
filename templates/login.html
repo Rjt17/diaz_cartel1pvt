@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block login %}
+<section class="page_text login_bg">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-10 col-lg-7">
+        <div class="login_form">      <ul class="tab_list">
+      	  <li>
+          <a class="nav-link active" href="https://www.oggy.co.in/login" role="tab">Sign In</a>
+        </li>
+      </ul>
+        <form method="post" id="signInForm">
+          {% csrf_token %}
+          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <a href="https://accounts.google.com/o/oauth2/auth?response_type=code&access_type=online&client_id=589702176358-rgc4ht137qvgtro9fs4a51fngggsruj8.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fwww.oggy.co.in&state&scope=email%20profile%20openid&approval_prompt=auto"><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/google_icon.svg" width=20px height=20px> Sign In With Google</a>
+          </div>
+          
+          <p id="msgError" class="text-danger" style="display:none"></p>
+          <div class="form-group">
+            <input type="text" name="username" class="form-control" id="mobile_no" placeholder="Mobile No.*" required maxlength="10" required  onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
+          </div>      
+          <button type="button" class="btn btn-primary" name="submit" id="sendOtp">Sign In</button>
+          </form>
+        
+                
+        <form method="post" class="d-none" id="otpForm" action="/login/">
+            {% csrf_token %}
+            <p id="msgOtp" class="text-warning">We have sent OTP on your mobile.</p>
+            <div class="form-group">
+                <input type="text" name="otp" class="form-control" id="otp" placeholder="Enter OTP" required>
+            </div>
+            <a href="/"><button type="button" class="btn" name="otpLogin" id="otpLogin"><a href="/">Submit</a></button>
+        </form>
+    </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
+<script>
+    function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId());
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail());
+}
+</script>
+
+<script>
+function forgetPassword(){
+    $("#signInForm").hide();
+    $("#forgetForm").show();
+    $("#forgetForm").removeClass('d-none');
+}
+
+function backToLogin(){
+    $("#signInForm").show();
+    $("#forgetForm").hide().addClass('d-none');
+    $("#otpForm").hide().addClass('d-none');
+}
+
+$("#sendOtp").click(function(){
+    
+    $("#msgError").html('');
+    var mobile_no = $("#mobile_no").val();
+    if(mobile_no == '' || mobile_no.length != 10){
+        $("#msgError").show().html('Please enter correct mobile no.');
+        return false;
+    }
+    
+    $.ajax({
+		url:"ajax.php",
+		type:"POST",
+		data:{"method":"send_login_otp","mobile_no":mobile_no},
+		success:function(data){
+		    
+		    if(data == 1){
+		    
+    		    //$("#forgetForm").hide();
+    		    $("#signInForm").hide();
+                $("#otpForm").show();
+                $("#otpForm").removeClass('d-none');
+		    }else{
+		        $("#msgError").show().html('Please enter correct mobile no.');
+		    }
+		}
+	});
+    
+});
+
+
+$("#changePassword").click(function(){
+    
+    var mobile_no = $("#mobile_no").val();
+    var otp = $("#otp").val();
+    var newPass = $("#newPass").val();
+    var confirmPass = $("#confirmPass").val();
+    
+    if(newPass != confirmPass){
+        $("#msgOtp").html('New password and confirm password didn\'t match!');
+        return false;
+    }
+    if(otp == ''){
+        $("#msgOtp").html('Please enter OTP!');
+        return false;
+    }
+    if(newPass == ''){
+        $("#msgOtp").html('Please enter password!');
+        return false;
+    }
+    if(confirmPass == ''){
+        $("#msgOtp").html('Please enter confirm password!');
+        return false;
+    }
+    
+    $.ajax({
+		url:"ajax.php",
+		type:"POST",
+		data:{"method":"changePass","mobile_no":mobile_no,"otp":otp,"newPass":newPass,"confirmPass":confirmPass},
+		success:function(data){
+		    
+		    if(data == 1){
+		    
+    		    alert('Password reset successfully');
+    		    location.href = '';
+    		    
+		    }else{
+		        $("#msgOtp").show().html('Please enter correct OTP!');
+		    }
+		}
+	});
+    
+});
+
+
+$("#otpLogin").click(function(){
+    
+    var mobile_no = $("#mobile_no").val();
+    var otp = $("#otp").val();
+    if(otp == ''){
+        $("#msgOtp").html('Please enter OTP!');
+        return false;
+    }
+
+    $.ajax({
+		url:"ajax.php",
+		type:"POST",
+		data:{"method":"loginCheck","otp":otp,"mobile_no":mobile_no},
+		success:function(data){
+		    
+		    if(data == 1){
+		    
+    		    //alert('Password reset successfully');
+    		    location.href = '';
+    		    
+		    }else{
+		        $("#msgOtp").show().html('Please enter correct OTP!');
+		    }
+		}
+	});
+    
+});
+
+</script>
+{% endblock login %}

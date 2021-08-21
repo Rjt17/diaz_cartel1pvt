@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block offer %}
+
+<nav class="navbar navbar-light my-5">
+  <div class="container-fluid d-flex justify-content-center">
+    <form class="d-flex" action="/restaurants/" method="get">
+      <div class="form-row">
+            <div class="col-sm-12 col-md-4">
+                <input type="text" name="city" value={{city}} id="search_city" class="form-control me-2" placeholder="Address e.g City " />
+            </div>
+            <div class="col-sm-12 col-md-4 autocomplete">
+                <input type="text" name="restaurant" autocomplete="off" id="search_restaurant" class="form-control me-2" placeholder="Restaurant" />
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+  </div>
+</nav>
+<div class="container-fluid d-flex justify-content-center">
+
+<div class="container">
+<div class="container-fluid">
+    <div class="container">
+        <div class="col">
+          <div class="container card shadow-sm pr-0">
+            <div class="row w-100">
+              <div class="container px-0 mx-0 col-xs-6" style="width: 50%;">
+              <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/cuisine+images/cuisine+images/{{image_cuisine}}/{{image_original}}">
+              </div>
+              <div class="container px-0 mx-0 col-xs-6" style="width: 50%;">
+                <div class="container">
+                  <div class="btn-group py-2">
+                    <table>
+                    <tr><td><h2><b>{{name}}</b></h2></td></tr>
+                    <tr><td><p style="font-size: 140%; font-family: 'Cormorant', serif;">{{location}}</p></td></tr>
+                    <tr><td><p style="font-size: 140%; font-family: 'Cormorant', serif;">{{rating}}</p></td></tr>
+                    <tr><td><p style="font-size: 140%; font-family: 'Cormorant', serif;">{{cuisine}}</p></td></tr>
+                    <tr><td><p style="font-size: 140%; font-family: 'Cormorant', serif;"><i>₹{{price}} for 2</i></p></td></tr>
+                    <tr><th>
+                      <button class="btn" style="background-color: #ffffff; border: 2px solid orange;"><a href="https://api.whatsapp.com/send?text={{share_to_whatsapp}}"  style="color:black;" data-action="share/whatsapp/share" target="_blank">WhatsApp</a></button>
+                    </th></tr>
+                    </table>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="card-text"></p>
+              <div>
+                <div class="container d-flex justify-content-center">
+                  <table class="py-2 d-flex justify-content-center">
+                      <tr>
+                          <th><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/zomato.svg" alt='zomato' width=100px height=40px></th>
+                          <td class="d-flex justify-content-center">
+                              <button class="btn btn-light py-2" style="background-color: aliceblue; border: 2px solid rgb(174, 217, 255); border-radius: 10%;"><a href="{{zomato_url}}" target="_blank" style="color:black;">{{offer_zomato}}</a></button>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/swiggy.svg" alt='swiggy' width=100px height=40px></th>
+                          <td class="d-flex justify-content-center">
+                            {% for offer in offer_swiggy %}
+                              <button class="btn btn-primary py-2 mx-1" style=" height: 20%; background-color: aliceblue; border: 2px solid rgb(174, 217, 255); border-radius: 10%;"><a href="https://linksredirect.com/?cid=106664&source=linkkit&url={{swiggy_url}}" target="_blank" style="color:black;">{{offer}}</a></button>
+                            {% endfor %}
+                            </td>
+                      </tr>
+                      <tr>
+                          <th><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/dineout.svg" alt='dineout' width=100px height=40px></th>
+                          <td class="d-flex justify-content-center"><button class="btn btn-primary py-2" style="background-color: aliceblue; border: 2px solid rgb(174, 217, 255); border-radius: 10%;"><a href="{{dineout_url}}" target="_blank" style="color:black;">{{offer_dineout}}</a></button></td>
+                      </tr>
+                      <tr>
+                          <th><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/easydiner.svg" alt='eazydiner' width=100px height=40px></th>
+                          <td class="d-flex justify-content-center"><button class="btn btn-primary py-2" style="background-color: aliceblue; border: 2px solid rgb(174, 217, 255); border-radius: 10%;"><a href="{{eazydiner_url}}" target="_blank" style="color:black;">{{offer_eazydiner}}</a></button></td>
+                      </tr>
+                      <tr>
+                        <th><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/magicpin-logo.jpg" alt='magicpin' width=100px height=40px></th>
+                        <td class="d-flex justify-content-center"><button class="btn btn-primary py-2" style="background-color: aliceblue; border: 2px solid rgb(174, 217, 255); border-radius: 10%;"><a href="{{magicpin_url}}"  target="_blank" style="color:black;">{{offer_magicpin}}</a></button></td>
+                    </tr>
+                  </table>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+</div>
+</div>
+</div>
+{% endblock offer %}
