@@ -13,5 +13,6 @@ urlpatterns = [
     path('price/', views.price, name='filter-price'),
     path('rating/', views.rating, name='filter-rating'),
     path('cuisine/', views.cuisine, name='filter-cuisine'),
-    path('about-us/', views.about, name='home-about')
+    path('about-us/', views.about, name='home-about'),
+    path('faq/', views.faq, name='home-faq')
 ]

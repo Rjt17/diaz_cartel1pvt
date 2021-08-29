@@ -111,6 +111,12 @@ def about(request):
     }
     return render(request, 'about-us.html', context)
 
+def faq(request):
+    context = {
+        'cities' : cities()
+    }
+    return render(request, 'faq.html', context)
+
 
 def login(request):
     context = {
