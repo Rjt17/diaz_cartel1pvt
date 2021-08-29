@@ -117,6 +117,12 @@ def faq(request):
     }
     return render(request, 'faq.html', context)
 
+def privacy_policy(request):
+    context = {
+        'cities' : cities()
+    }
+    return render(request, 'privacy_policy.html', context)
+
 
 def login(request):
     context = {
