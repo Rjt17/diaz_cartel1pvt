@@ -6,7 +6,7 @@ import urllib.parse
 import random
 
 #global
-cuisines_available = ['asian', 'burger', 'chinese', 'continental', 'dessert', 'european', 'fast food', 'french', 'ice cream', 'indian', 'italian', 'japanese', 'lebanese', 'maharashtrian', 'mediterranean', 'mexican', 'nepalese', 'north indian', 'oriental', 'pizza', 'sea food', 'shake', 'south indian', 'tea', 'thai', 'tibetian', 'turkish', 'vietnamese', 'waffle', 'world']
+cuisines_available = ['Afghani', 'African', 'American', 'Andhra', 'Arabian', 'Asian', 'Assamese', 'Australian', 'Awadhi', 'Bakery and Confectionary', 'Barbecue', 'Belgian', 'Bengali', 'Bihari', 'Biryani', 'Brazilian', 'British', 'Burger', 'Burmese', 'Cantonese', 'Chaat', 'Chettinad', 'Chinese', 'Coastal', 'Coffee', 'Contemporary Continental', 'Continental', 'Deli', 'Desserts', 'Doughnuts', 'Drinks', 'Ethiopian', 'European', 'Fast Food', 'Finger Food', 'French', 'Fusion', 'German', 'Goan', 'Greek', 'Gujarati', 'Haleem', 'Health Food', 'Hyderabadi', 'Ice Cream', 'Indian Cuisine', 'Indonesian', 'Iranian', 'Israeli', 'Italian', 'Japanese', 'Juice', 'Kashmiri', 'Kerala', 'Konkani', 'Korean', 'Latin American', 'Lebanese', 'Lucknowi', 'Maharashtrian', 'Malaysian', 'Malvani', 'Mangalorean', 'Mediterranean', 'Mexican', 'Middle Eastern', 'Mithai', 'Modern Indian', 'Moroccan', 'Mughlai', 'Multi-Cuisine', 'Naga', 'Nepalese', 'Nikkei', 'North Eastern', 'North Indian', 'North West Frontier', 'Odia', 'Oriental', 'Pakistani', 'Parsi', 'Persian', 'Pizza', 'Portuguese', 'Rajasthani', 'Russian', 'Seafood', 'Shakes', 'Sindhi', 'Singaporean', 'Sizzlers', 'South American', 'South Indian', 'Spanish', 'Street Food', 'Sushi', 'Tamil', 'Tea', 'Tex Mex', 'Thai', 'Tibetan', 'Turkish', 'Vietnamese', 'Waffle', 'Western', 'World Cuisine', 'Yogurt', 'Indian', 'All Day Dining', 'Bakery', 'Bangladeshi', 'Barbeque', 'Beverages', 'Burgers', 'Cafe', 'Casual Eclectic', 'Chicken', 'Cocktail Menu', 'Coffee and Tea', 'Confectionery', 'Cuban', 'Delicatessen ', 'Dim Sum', 'Drinks Only', 'Egyptian', 'Fish ', 'Healthy', 'Healthy Food', 'Indian Coastal Cuisine', 'Juices', 'Kababs', 'Konkan', 'Malaysian ', 'Milkshakes', 'Momos', 'Multicuisine', 'Nagaland', 'Oriya', 'Pan Asian', 'Parathas', 'Pasta', 'Progressive Indian Cuisine', 'Regional Indian', 'Salad', 'Sandwiches', 'Shawarma', 'Sindhi ', 'Sri Lankan', 'Steakhouse', 'Steaks', 'Tamil Nadu', 'Tapas', 'Tex-Mex', 'Vegan', 'oriental', 'Keventers & more', 'Attractive Combos Available', 'Bowl Company', 'Cold cuts', 'Combo', 'Fish & Seafood', 'Grill', 'Home Food', 'Ice Cream Cakes', 'Italian-American', 'Jain', 'Kebabs', 'Keto', 'Malwani', 'Mongolian', 'Mutton', 'Pan-Asian', 'Pastas', 'Pizzas', 'Popular Brand Store', 'Punjabi', 'Ready to cook meat', 'Salads', 'Snacks', 'Sweets', 'Tandoor', 'Tandoor ', 'Telangana', 'Thalis', 'indian', '8:15 To 11:30 Pm', 'Paan', 'Sandwich', 'Wraps', 'Rolls', 'Kebab', 'BBQ', 'Bar Food', 'Roast Chicken', 'Mishti', 'Raw Meats', 'Hot dogs', 'Afghan', 'Frozen Yogurt', 'Panini', 'Bubble Tea', 'Steak', 'Bohri', 'Jamaican']
 
 city = "jaipur"
 
@@ -54,11 +54,11 @@ def bulk_images(cuisines):
     for x in cuisines:
         try:
             if x != "random":
-                image_original = x + str(random.randint(1,7))
+                image_original = x + str(random.randint(1,30))
                 image_original = image_original + ".jpg"
                 image_originals.append(image_original)
             else:
-                image_original = "random" + str(random.randint(1,7))
+                image_original = "random" + str(random.randint(1,30))
                 image_original = image_original + ".jpg"
                 image_originals.append(image_original)
         except:
@@ -84,11 +84,11 @@ def image_cuisine(result_image):
 def image_original(result_image):
     try:
         if image_cuisine(result_image) != "random":
-            image_original = image_cuisine(result_image) + str(random.randint(1,7))
+            image_original = image_cuisine(result_image) + str(random.randint(1,30))
             image_original = image_original + ".jpg"
             return image_original
         else:
-            image_original = "random" + (random.randint(1,7))
+            image_original = "random" + (random.randint(1,30))
             image_original = image_original + ".jpg"
             return image_original
     except:
