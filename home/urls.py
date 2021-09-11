@@ -15,5 +15,6 @@ urlpatterns = [
     path('cuisine/', views.cuisine, name='filter-cuisine'),
     path('about-us/', views.about, name='home-about'),
     path('faq/', views.faq, name='home-faq'),
-    path('privacy-policy/', views.privacy_policy, name='home-privacy-policy')
+    path('privacy-policy/', views.privacy_policy, name='home-privacy-policy'),
+    path('terms-of-use/', views.terms_of_use, name='home-terms-of-use')
 ]

@@ -123,6 +123,12 @@ def privacy_policy(request):
     }
     return render(request, 'privacy_policy.html', context)
 
+def terms_of_use(request):
+    context = {
+        'cities' : cities()
+    }
+    return render(request, 'terms-of-use.html', context)
+
 
 def login(request):
     context = {
