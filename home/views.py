@@ -246,8 +246,20 @@ def offer(request):
     offer_zomato = cur.fetchone()
     cur.execute('select offers from restaurants_magicpin where city = %s and name = %s', [rest_city, rest_name])
     offer_magicpin = cur.fetchone()
-    cur.execute('select rating, cuisine, price, location from restaurants_dineout where city = %s and name = %s', [rest_city, rest_name])
+    cur.execute('select rating, cuisine, price, location from restaurants_zomato where city = %s and name = %s', [rest_city, rest_name])
     results = cur.fetchall()
+    if results == ():
+        cur.execute('select rating, cuisine, price, location from restaurants_dineout where city = %s and name = %s', [rest_city, rest_name])
+        results = cur.fetchall()
+    if results == ():
+        cur.execute('select rating, cuisine, price, location from restaurants_eazydiner where city = %s and name = %s', [rest_city, rest_name])
+        results = cur.fetchall()
+    if results == ():
+        cur.execute('select rating, cuisine, price, location from restaurants_swiggy where city = %s and name = %s', [rest_city, rest_name])
+        results = cur.fetchall()
+    if results == ():
+        cur.execute('select rating, cuisine, price, location from restaurants_magicpin where city = %s and name = %s', [rest_city, rest_name])
+        results = cur.fetchall()
     ratings = []
     cuisines = []
     prices = []
