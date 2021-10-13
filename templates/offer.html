@@ -56,9 +56,14 @@
                       <tr>
                           <th><img src="https://oggy-static-content.s3.ap-south-1.amazonaws.com/images/zomato.svg" alt='zomato' width=100px height=40px></th>
                           <td class="d-flex justify-content-center">
-                          {% for offer in offer_zomato %}
+                          {% if offer_zomato != "No Offers" %}
+                            {% for offer in offer_zomato %}
                               <button class="btn btn-light py-2" style="background-color: aliceblue; border: 2px solid rgb(174, 217, 255); border-radius: 10%;"><a href="{{zomato_url}}" target="_blank" style="color:black;">{{offer}}</a></button>
-                          {% endfor %}
+                            {% endfor %}
+                          {% endif %}
+                          {% if offer_zomato == "No Offers" %}
+                          <button class="btn btn-light py-2" style="background-color: aliceblue; border: 2px solid rgb(174, 217, 255); border-radius: 10%;"><a href="{{zomato_url}}" target="_blank" style="color:black;">No Offers</a></button>
+                          {% endif %}
                           </td>
                       </tr>
                       <tr>
