@@ -4,9 +4,14 @@ import pymysql
 from django.urls import reverse
 import urllib.parse
 import random
+import requests
+from bs4 import BeautifulSoup
+
+
 
 #global
 cuisines_available = ['Afghani', 'African', 'American', 'Andhra', 'Arabian', 'Asian', 'Assamese', 'Australian', 'Awadhi', 'Bakery and Confectionary', 'Barbecue', 'Belgian', 'Bengali', 'Bihari', 'Biryani', 'Brazilian', 'British', 'Burger', 'Burmese', 'Cantonese', 'Chaat', 'Chettinad', 'Chinese', 'Coastal', 'Coffee', 'Contemporary Continental', 'Continental', 'Deli', 'Desserts', 'Doughnuts', 'Drinks', 'Ethiopian', 'European', 'Fast Food', 'Finger Food', 'French', 'Fusion', 'German', 'Goan', 'Greek', 'Gujarati', 'Haleem', 'Health Food', 'Hyderabadi', 'Ice Cream', 'Indian Cuisine', 'Indonesian', 'Iranian', 'Israeli', 'Italian', 'Japanese', 'Juice', 'Kashmiri', 'Kerala', 'Konkani', 'Korean', 'Latin American', 'Lebanese', 'Lucknowi', 'Maharashtrian', 'Malaysian', 'Malvani', 'Mangalorean', 'Mediterranean', 'Mexican', 'Middle Eastern', 'Mithai', 'Modern Indian', 'Moroccan', 'Mughlai', 'Multi-Cuisine', 'Naga', 'Nepalese', 'Nikkei', 'North Eastern', 'North Indian', 'North West Frontier', 'Odia', 'Oriental', 'Pakistani', 'Parsi', 'Persian', 'Pizza', 'Portuguese', 'Rajasthani', 'Russian', 'Seafood', 'Shakes', 'Sindhi', 'Singaporean', 'Sizzlers', 'South American', 'South Indian', 'Spanish', 'Street Food', 'Sushi', 'Tamil', 'Tea', 'Tex Mex', 'Thai', 'Tibetan', 'Turkish', 'Vietnamese', 'Waffle', 'Western', 'World Cuisine', 'Yogurt', 'Indian', 'All Day Dining', 'Bakery', 'Bangladeshi', 'Barbeque', 'Beverages', 'Burgers', 'Cafe', 'Casual Eclectic', 'Chicken', 'Cocktail Menu', 'Coffee and Tea', 'Confectionery', 'Cuban', 'Delicatessen ', 'Dim Sum', 'Drinks Only', 'Egyptian', 'Fish ', 'Healthy', 'Healthy Food', 'Indian Coastal Cuisine', 'Juices', 'Kababs', 'Konkan', 'Malaysian ', 'Milkshakes', 'Momos', 'Multicuisine', 'Nagaland', 'Oriya', 'Pan Asian', 'Parathas', 'Pasta', 'Progressive Indian Cuisine', 'Regional Indian', 'Salad', 'Sandwiches', 'Shawarma', 'Sindhi ', 'Sri Lankan', 'Steakhouse', 'Steaks', 'Tamil Nadu', 'Tapas', 'Tex-Mex', 'Vegan', 'oriental', 'Keventers & more', 'Attractive Combos Available', 'Bowl Company', 'Cold cuts', 'Combo', 'Fish & Seafood', 'Grill', 'Home Food', 'Ice Cream Cakes', 'Italian-American', 'Jain', 'Kebabs', 'Keto', 'Malwani', 'Mongolian', 'Mutton', 'Pan-Asian', 'Pastas', 'Pizzas', 'Popular Brand Store', 'Punjabi', 'Ready to cook meat', 'Salads', 'Snacks', 'Sweets', 'Tandoor', 'Tandoor ', 'Telangana', 'Thalis', 'indian', '8:15 To 11:30 Pm', 'Paan', 'Sandwich', 'Wraps', 'Rolls', 'Kebab', 'BBQ', 'Bar Food', 'Roast Chicken', 'Mishti', 'Raw Meats', 'Hot dogs', 'Afghan', 'Frozen Yogurt', 'Panini', 'Bubble Tea', 'Steak', 'Bohri', 'Jamaican']
+headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'}
 
 city = "jaipur"
 
@@ -247,14 +252,56 @@ def offer(request):
     except:
         magicpin_url = "https://www.magicpin.in"
 
+    if zomato_url != "https://www.zomato.com":
+        page = requests.get(zomato_url, headers=headers)
+        content = page.content
+        soup = BeautifulSoup(content, 'html.parser')
+        #offers
+        zomato_offers = []
+        for parent in soup.find_all(class_='sc-1a03l6b-0 lkqupg'):
+            if parent != None:
+                offer = list(parent.get_text())
+                for x in offer:
+                    if x == "₹":
+                        offer.remove("₹")
+                current_offers = ""
+                for x in offer:
+                    current_offers += x
+                offer = current_offers
+                zomato_offers.append(offer)
+        if zomato_offers == []:
+            zomato_offers.append("No Offers")
+        #offer codes
+        codes = []
+        for parent in soup.find_all(class_="sc-1a03l6b-1 kvnZBD"):
+            if parent != None:
+                offer = list(parent.get_text())
+                for x in offer:
+                    if x == "₹":
+                        offer.remove("₹")
+                current_offers = ""
+                for x in offer:
+                    current_offers += x
+                offer = current_offers
+                codes.append(offer)
+        offer_with_codes = []
+        if codes != []:
+            for x, y in zip(zomato_offers, codes):
+                offer_with_codes.append(x + "|" + y)
+        #offer conversion from list to string
+        if offer_with_codes != []:
+            offers_final = ",".join(offer_with_codes)
+        else:
+            offers_final = "No Offers"
+    else:
+        offers_final = "No Offers"
+        
     cur.execute('select offers from restaurants_dineout where city = %s and name = %s', [rest_city, rest_name])
     offer_dineout = cur.fetchone()
     cur.execute('select offers from restaurants_swiggy where city = %s and name = %s', [rest_city, rest_name])
     offer_swiggy = cur.fetchone()
     cur.execute('select offers from restaurants_eazydiner where city = %s and name = %s', [rest_city, rest_name])
     offer_eazydiner = cur.fetchone()
-    cur.execute('select offers from restaurants_zomato where city = %s and name = %s', [rest_city, rest_name])
-    offer_zomato = cur.fetchone()
     cur.execute('select offers from restaurants_magicpin where city = %s and name = %s', [rest_city, rest_name])
     offer_magicpin = cur.fetchone()
     cur.execute('select rating, cuisine, price, location from restaurants_zomato where city = %s and name = %s', [rest_city, rest_name])
@@ -311,17 +358,17 @@ def offer(request):
     offer_dineout = None_offer_converter(offer_dineout)
     offer_eazydiner = None_offer_converter(offer_eazydiner)
     offer_swiggy = None_offer_converter(offer_swiggy)
-    offer_zomato = None_offer_converter(offer_zomato)
     offer_magicpin = None_offer_converter(offer_magicpin)
     ratings = None_converter(ratings)
     cuisines = None_converter(cuisines)
     prices = None_converter(prices)
     locations = None_converter(locations)
-    if offer_zomato == "" or " ":
-        offer_zomato = "No Offers"
 
     if offer_swiggy != "No Offers":
         offer_swiggy = offer_swiggy.split(",")
+    
+    if offers_final != "No Offers":
+        offers_final = offers_final.split(",")
 
     context = {
         'city' : rest_city,
@@ -333,7 +380,7 @@ def offer(request):
         'offer_dineout' : offer_dineout,
         'offer_swiggy' : offer_swiggy,
         'offer_eazydiner' : offer_eazydiner,
-        'offer_zomato' : offer_zomato,
+        'offer_zomato' : offers_final,
         'offer_magicpin' : offer_magicpin,
         'cities' : cities(),
         'swiggy_url' : swiggy_url,
