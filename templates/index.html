@@ -39,8 +39,13 @@
                                             {% endfor %}
                                         </datalist>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 autocomplete">
-                                        <input type="text" name="restaurant" autocomplete="off" id="search_restaurant" class="form-control" placeholder="Restaurant e.g RJ14" />
+                                    <div class="col-sm-12 col-md-4">
+                                        <input type="text" name="restaurant" id="search_restaurant" class="form-control" placeholder="Restaurant e.g RJ14" list="rests" autocomplete="off"/>
+                                        <datalist id="rests">
+                                          {% for rest in rests %}
+                                            <option value='{{rest}}'></option>
+                                          {% endfor %}
+                                        </datalist>
                                     </div>
                                     <div class="col-sm-12 col-md-4">
                                         <button class="btn" type="submit" id="searchbuttonmain">Search</button>

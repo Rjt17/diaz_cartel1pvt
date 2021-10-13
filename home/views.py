@@ -33,6 +33,16 @@ def cities():
         cities.append("".join(x))
     return cities
 
+def rests_zomato():
+    cur = database()
+    cur.execute("select name from restaurants_zomato")
+    results = cur.fetchall()
+    rests = []
+    for x in results:
+        rests.append("".join(x))
+    return rests
+
+
 def bulk_cuisines(cuisines):
     image_cuisines = []
     for x in cuisines:
@@ -101,7 +111,8 @@ def image_original(result_image):
 def home(request):
     geolocation(request)
     context = {
-        'cities' : cities()
+        'cities' : cities(),
+        'rests' : rests_zomato()
     }
     return render(request, 'index.html', context)
 
@@ -153,7 +164,7 @@ def restaurants(request):
         return redirect(url)
 
     #get data
-    cur.execute("select name, rating, cuisine, price, location from restaurants_dineout where city = %s", [rest_city])
+    cur.execute("select name, rating, cuisine, price, location from restaurants_zomato where city = %s", [rest_city])
     results = cur.fetchall()
     names = []
     ratings = []
