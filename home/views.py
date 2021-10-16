@@ -19,7 +19,7 @@ city = "jaipur"
 
 def geolocation(request):
     ip = request.META.get('REMOTE_ADDR', None)
-    print(f"ip is: {ip}")
+    #print(f"ip is: {ip}")
 
 def database():
     db = pymysql.connect(host="www.oggy.co.in",
