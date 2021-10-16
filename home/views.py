@@ -295,6 +295,23 @@ def offer(request):
             offers_final = "No Offers"
     else:
         offers_final = "No Offers"
+
+    swiggy_offers = []
+    if swiggy_url != "https://www.swiggy.com":
+        page = requests.get(swiggy_url, headers=headers)
+        content = page.content
+        soup = BeautifulSoup(content, 'html.parser')
+        #offers
+        
+        for parent in soup.find_all(class_="_3lvLZ"):
+            if parent != None:
+                swiggy_offers.append(parent.get_text())
+            else:
+                swiggy_offers.append("No Offers")
+                break
+    else:
+        swiggy_offers.append("No Offers")
+
         
     cur.execute('select offers from restaurants_dineout where city = %s and name = %s', [rest_city, rest_name])
     offer_dineout = cur.fetchone()
@@ -378,7 +395,7 @@ def offer(request):
         'price' : prices,
         'location' : locations,
         'offer_dineout' : offer_dineout,
-        'offer_swiggy' : offer_swiggy,
+        'offer_swiggy' : swiggy_offers,
         'offer_eazydiner' : offer_eazydiner,
         'offer_zomato' : offers_final,
         'offer_magicpin' : offer_magicpin,
