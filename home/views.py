@@ -54,8 +54,9 @@ def bulk_cuisines(cuisines):
         try:
             image_cuisine = x.split(",")
             image_cuisine = image_cuisine[0]
-            image_cuisine = image_cuisine[1:]
-            image_cuisine = image_cuisine.lower()
+            image_cuisine = image_cuisine[0:]
+            image_cuisine = image_cuisine.title()
+            print(image_cuisine)
             if image_cuisine not in cuisines_available:
                 image_cuisines.append('random')
             else:
@@ -86,8 +87,9 @@ def image_cuisine(result_image):
         image_cuisine = image_cuisine[0]
         image_cuisine = image_cuisine.split(",")
         image_cuisine = image_cuisine[0]
-        image_cuisine = image_cuisine[1:]
-        image_cuisine = image_cuisine.lower()
+        image_cuisine = image_cuisine[0:]
+        image_cuisine = image_cuisine.title()
+        print(image_cuisine)
         if image_cuisine not in cuisines_available:
             return "random"
         else:
@@ -219,7 +221,7 @@ def offer(request):
     dineout_url = cur.fetchone()
     cur.execute('select url from restaurants_magicpin where city = %s and name = %s', [rest_city, rest_name])
     magicpin_url = cur.fetchone()
-    cur.execute('select cuisine from restaurants_dineout where city = %s and name = %s', [rest_city, rest_name])
+    cur.execute('select cuisine from restaurants_zomato where city = %s and name = %s', [rest_city, rest_name])
     result_image = cur.fetchone()
 
     try:
@@ -311,7 +313,14 @@ def offer(request):
                 break
     else:
         swiggy_offers.append("No Offers")
-
+    """
+    if eazydiner_url != "https://www.eazydiner.com":
+        page = requests.get(eazydiner_url, headers=headers)
+        content = page.content
+        soup = BeautifulSoup(content, 'html.parser')
+        for parent in soup.find_all(class_="bold font-14 lh-20 grey-dark mt-10 mb-15"):
+            print(parent)
+    """
         
     cur.execute('select offers from restaurants_dineout where city = %s and name = %s', [rest_city, rest_name])
     offer_dineout = cur.fetchone()
