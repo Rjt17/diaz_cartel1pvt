@@ -56,7 +56,6 @@ def bulk_cuisines(cuisines):
             image_cuisine = image_cuisine[0]
             image_cuisine = image_cuisine[0:]
             image_cuisine = image_cuisine.title()
-            print(image_cuisine)
             if image_cuisine not in cuisines_available:
                 image_cuisines.append('random')
             else:
@@ -89,7 +88,6 @@ def image_cuisine(result_image):
         image_cuisine = image_cuisine[0]
         image_cuisine = image_cuisine[0:]
         image_cuisine = image_cuisine.title()
-        print(image_cuisine)
         if image_cuisine not in cuisines_available:
             return "random"
         else:
