@@ -70,11 +70,11 @@ def bulk_images(cuisines):
         try:
             if x != "random":
                 image_original = x + str(random.randint(1,30))
-                image_original = image_original + ".jpg"
+                image_original = image_original + ".svg"
                 image_originals.append(image_original)
             else:
                 image_original = "random" + str(random.randint(1,30))
-                image_original = image_original + ".jpg"
+                image_original = image_original + ".svg"
                 image_originals.append(image_original)
         except:
             image_originals.append("random")
@@ -100,16 +100,16 @@ def image_original(result_image):
     try:
         if image_cuisine(result_image) != "random":
             image_original = image_cuisine(result_image) + str(random.randint(1,30))
-            image_original = image_original + ".jpg"
+            image_original = image_original + ".svg"
             return image_original
         else:
             image_original = "random" + (random.randint(1,30))
-            image_original = image_original + ".jpg"
+            image_original = image_original + ".svg"
             return image_original
     except:
         image_original = 'random'
         image_original += str(random.randint(1,7))
-        image_original += ".jpg"
+        image_original += ".svg"
         return image_original
 
 #redirectors
